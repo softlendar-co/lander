@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Left red book -->
+  <rect x="6" y="12" width="16" height="76" rx="3" fill="#e53935"/>
+  <rect x="8" y="10" width="12" height="80" rx="2" fill="white"/>
+  <line x1="14" y1="15" x2="14" y2="85" stroke="#e53935" stroke-width="2"/>
+
+  <!-- Right red book -->
+  <rect x="78" y="12" width="16" height="76" rx="3" fill="#e53935"/>
+  <rect x="80" y="10" width="12" height="80" rx="2" fill="white"/>
+  <line x1="86" y1="15" x2="86" y2="85" stroke="#e53935" stroke-width="2"/>
+
+  <!-- Letter c: cursive, red, 40px -->
+  <text x="28" y="57" font-family="cursive" font-size="40" fill="red" font-weight="bold">c</text>
+
+  <!-- Letter t: monospace, green, 35px -->
+  <text x="56" y="58" font-family="monospace" font-size="35" fill="green" font-weight="bold">t</text>
+</svg>
