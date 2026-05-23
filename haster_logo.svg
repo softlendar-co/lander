@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- hex frame -->
+  <polygon
+    points="50,8 88,28 88,72 50,92 12,72 12,28"
+    fill="none"
+    stroke="#ff8c42"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+  <!-- H with lightning crossbar -->
+  <line x1="32" y1="28" x2="32" y2="72" stroke="#ff3c7f" stroke-width="6" stroke-linecap="round" />
+  <line x1="68" y1="28" x2="68" y2="72" stroke="#ff3c7f" stroke-width="6" stroke-linecap="round" />
+  <path
+    d="M32 50 L45 50 L50 42 L55 50 L68 50"
+    fill="none"
+    stroke="#ff8c42"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- speed dot -->
+  <circle cx="74" cy="50" r="4" fill="#ff8c42">
+    <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite" />
+  </circle>
+</svg>

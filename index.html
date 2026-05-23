@@ -3,15 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Softlendar — building catlearning.fyi & more</title>
+        <title>Softlendar — catlearning.fyi & termirator</title>
 
         <meta
             name="description"
-            content="Softlendar builds interactive web experiences — including catlearning.fyi, a cat-themed learning app, and future projects like redarbot.app."
+            content="Softlendar builds interactive web experiences — including catlearning.fyi, a cat-themed learning app, and termirator, a terminal-style web app."
         />
         <meta
             name="keywords"
-            content="softlendar, catlearning, cat web, redarbot, dobart, interactive, web apps"
+            content="softlendar, catlearning, termirator, terminal, interactive, web apps"
         />
         <meta
             property="og:title"
@@ -77,19 +77,43 @@
                 </p>
 
                 <p>
-                    Stay tuned for <strong>redarbot.app</strong> and
-                    <strong>dobart.app</strong> — the next projects coming soon
-                    from Softlendar. Something new is always being built here.
+                    Our nw project — <strong>termirator</strong> — is
+                    a terminal-style interactive web app where you can run
+                    power commands, switch contexts, explore systems, and
+                    experience a cyberpunk HUD. Built with
+                    <strong>Shell</strong>, <strong>Rust</strong>,
+                    <strong>JavaScript</strong>, <strong>CSS</strong>,
+                    and <strong>HTML</strong>.
                 </p>
 
-                <div class="badge-row">
-                    <span class="badge">science</span>
-                    <span class="badge">stars</span>
-                    <span class="badge">cats</span>
-                    <span class="badge">research</span>
-                    <span class="badge">CS</span>
-                    <span class="badge">programming</span>
-                    <span class="badge">Rails 8</span>
+                <div class="badge-categories">
+                    <div class="badge-group">
+                        <span class="badge-label">lang</span>
+                        <div class="badge-row">
+                            <span class="badge">rb</span>
+                            <span class="badge">rs</span>
+                            <span class="badge">sh</span>
+                            <span class="badge">js</span>
+                            <span class="badge">css</span>
+                            <span class="badge">html</span>
+                        </div>
+                    </div>
+                    <div class="badge-group">
+                        <span class="badge-label">topic</span>
+                        <div class="badge-row">
+                            <span class="badge">science</span>
+                            <span class="badge">programming</span>
+                            <span class="badge">friendly</span>
+                            <span class="badge">time</span>
+                        </div>
+                    </div>
+                    <div class="badge-group">
+                        <span class="badge-label">focus</span>
+                        <div class="badge-row">
+                            <span class="badge">privacy</span>
+                            <span class="badge">academy</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="links-row">
@@ -102,6 +126,14 @@
                         🐾 Visit catlearning.fyi
                     </a>
                     <a
+                        href="https://termirator-j795.onrender.com/"
+                        class="link-btn secondary"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        🖥️ Visit termirator
+                    </a>
+                    <a
                         href="https://github.com/shambilaiyaz/"
                         class="link-btn secondary"
                         target="_blank"
@@ -109,22 +141,48 @@
                     >
                         📦 GitHub
                     </a>
-                    <span class="link-btn future" title="Coming soon">
-                        🚀 redarbot.app
-                    </span>
-                    <span class="link-btn future" title="Coming soon">
-                        🎨 dobart.app
-                    </span>
-                    <span
-                        class="link-btn future"
-                        title="Research archive — brucfecto, germstackio, gemstachio & fly studies"
-                    >
-                        🏃 bylothon.app
-                    </span>
                 </div>
 
                 <div class="paws" aria-hidden="true">☀️☀️☀️</div>
                 <div class="footer-note">softlendar.com — built with ❤️</div>
+            </div>
+        </section>
+
+        <!-- Command Terminal -->
+        <section class="terminal-section">
+            <div class="terminal-card">
+                <div class="terminal-header">
+                    <span class="term-dot red"></span>
+                    <span class="term-dot yellow"></span>
+                    <span class="term-dot green"></span>
+                    <span class="term-title">softlendar@terminal:~$</span>
+                </div>
+                <div class="terminal-body">
+                    <div id="term-output" class="term-output">
+                        <div class="term-line">
+                            Welcome to Softlendar terminal v0.1
+                        </div>
+                        <div class="term-line">
+                            Type a command and hit Enter. Press Tab to
+                            autocomplete.
+                        </div>
+                        <div class="term-line">
+                            Contexts: softlendar, cyberdyne, termitoria — type
+                            "context <name>" to switch.
+                        </div>
+                    </div>
+                    <div class="term-input-line">
+                        <span class="term-prompt">$</span>
+                        <input
+                            id="term-input"
+                            type="text"
+                            class="term-input"
+                            autocomplete="off"
+                            spellcheck="false"
+                            placeholder="type command..."
+                        />
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -134,8 +192,24 @@
                 <!-- ct -->
                 <div class="marquee-item">
                     <img src="ct_logo.svg" alt="ct" width="64" height="64" />
-                    <span>ct</span>
                 </div>
+                <!-- termirator -->
+                <div class="marquee-item">
+                    <img src="termirator_logo.svg" alt="termirator" width="64" height="64" />
+                </div>
+                <!-- nametermer -->
+                <div class="marquee-item">
+                    <img src="nametermer_logo.svg" alt="nametermer" width="64" height="64" />
+                </div>
+                <!-- haster -->
+                <div class="marquee-item">
+                    <img src="haster_logo.svg" alt="haster" width="64" height="64" />
+                </div>
+                <!-- setomoly -->
+                <div class="marquee-item">
+                    <img src="setomoly_logo.svg" alt="setomoly" width="64" height="64" />
+                </div>
+                <!-- Duplicates for seamless loop -->
                 <!-- redarbot -->
                 <div class="marquee-item">
                     <svg
@@ -162,7 +236,6 @@
                         <circle cx="50" cy="50" r="10" fill="#ff3c7f" />
                         <circle cx="50" cy="50" r="4" fill="#fff" />
                     </svg>
-                    <span>redarbot</span>
                 </div>
                 <!-- dobart -->
                 <div class="marquee-item">
@@ -207,7 +280,6 @@
                             stroke-linejoin="round"
                         />
                     </svg>
-                    <span>dobart</span>
                 </div>
                 <!-- bylothon -->
                 <div class="marquee-item">
@@ -249,13 +321,26 @@
                             stroke-linecap="round"
                         />
                     </svg>
-                    <span>bylothon — research</span>
                 </div>
-                <!-- Duplicates for seamless loop -->
                 <!-- ct -->
                 <div class="marquee-item">
                     <img src="ct_logo.svg" alt="ct" width="64" height="64" />
-                    <span>ct</span>
+                </div>
+                <!-- termirator -->
+                <div class="marquee-item">
+                    <img src="termirator_logo.svg" alt="termirator" width="64" height="64" />
+                </div>
+                <!-- nametermer -->
+                <div class="marquee-item">
+                    <img src="nametermer_logo.svg" alt="nametermer" width="64" height="64" />
+                </div>
+                <!-- haster -->
+                <div class="marquee-item">
+                    <img src="haster_logo.svg" alt="haster" width="64" height="64" />
+                </div>
+                <!-- setomoly -->
+                <div class="marquee-item">
+                    <img src="setomoly_logo.svg" alt="setomoly" width="64" height="64" />
                 </div>
                 <div class="marquee-item">
                     <svg
@@ -282,7 +367,6 @@
                         <circle cx="50" cy="50" r="10" fill="#ff3c7f" />
                         <circle cx="50" cy="50" r="4" fill="#fff" />
                     </svg>
-                    <span>redarbot</span>
                 </div>
                 <div class="marquee-item">
                     <svg
@@ -326,7 +410,6 @@
                             stroke-linejoin="round"
                         />
                     </svg>
-                    <span>dobart</span>
                 </div>
                 <div class="marquee-item">
                     <svg
@@ -367,9 +450,347 @@
                             stroke-linecap="round"
                         />
                     </svg>
-                    <span>bylothon — research</span>
                 </div>
             </div>
         </section>
+
+        <script>
+            (function () {
+                const termInput = document.getElementById("term-input");
+                const termOutput = document.getElementById("term-output");
+                const termTitle = document.querySelector(".term-title");
+
+                const CONTEXTS = {
+                    softlendar: {
+                        name: "softlendar",
+                        prompt: "softlendar@terminal:~$",
+                        commands: [
+                            "help",
+                            "clear",
+                            "date",
+                            "echo",
+                            "whoami",
+                            "projects",
+                            "cat",
+                            "neofetch",
+                            "uptime",
+                            "reboot",
+                            "context",
+                        ],
+                        help: {
+                            help: "show this help message",
+                            clear: "clear the terminal screen",
+                            date: "show current date and time",
+                            echo: "print text to the terminal",
+                            whoami: "show current user info",
+                            projects: "list Softlendar projects",
+                            cat: "show a random cat fact",
+                            neofetch: "show system info",
+                            uptime: "show fake uptime",
+                            reboot: "reboot the terminal",
+                            context: "switch context — usage: context <name>",
+                        },
+                    },
+                    cyberdyne: {
+                        name: "cyberdyne",
+                        prompt: "T-101>",
+                        commands: [
+                            "help",
+                            "clear",
+                            "date",
+                            "echo",
+                            "whoami",
+                            "optical",
+                            "weapons",
+                            "targets",
+                            "status",
+                            "reboot",
+                            "context",
+                        ],
+                        help: {
+                            help: "show tactical help",
+                            clear: "clear HUD",
+                            date: "show mission clock",
+                            echo: "transmit message",
+                            whoami: "show unit designation",
+                            optical: "cycle optical system",
+                            weapons: "show weapon systems",
+                            targets: "show target acquisition",
+                            status: "show unit status",
+                            reboot: "reboot T-101 systems",
+                            context: "switch context — usage: context <name>",
+                        },
+                    },
+                    termitoria: {
+                        name: "termitoria",
+                        prompt: "termitoria>",
+                        commands: [
+                            "help",
+                            "clear",
+                            "date",
+                            "echo",
+                            "whoami",
+                            "agent",
+                            "models",
+                            "research",
+                            "deploy",
+                            "reboot",
+                            "context",
+                        ],
+                        help: {
+                            help: "show termitoria help",
+                            clear: "clear console",
+                            date: "show timestamp",
+                            echo: "broadcast message",
+                            whoami: "show active agent",
+                            agent: "show agent status",
+                            models: "list available models",
+                            research: "show research notes",
+                            deploy: "deploy agent",
+                            reboot: "reboot termitoria",
+                            context: "switch context — usage: context <name>",
+                        },
+                    },
+                };
+
+                let currentCtx = "softlendar";
+
+                const CAT_FACTS = [
+                    "Cats spend 70% of their lives sleeping.",
+                    "A group of cats is called a clowder.",
+                    "Cats can't taste sweetness.",
+                    "A cat's purr vibrates at a frequency that promotes healing.",
+                    "Cats have 32 muscles in each ear.",
+                ];
+
+                function printLine(text, className) {
+                    const line = document.createElement("div");
+                    line.className =
+                        "term-line" + (className ? " " + className : "");
+                    line.textContent = text;
+                    termOutput.appendChild(line);
+                    termOutput.scrollTop = termOutput.scrollHeight;
+                }
+
+                function printPrompt(cmd) {
+                    printLine(CONTEXTS[currentCtx].prompt + " " + cmd);
+                }
+
+                function setContext(name) {
+                    if (!CONTEXTS[name]) {
+                        printLine(
+                            'context not found: "' + name + '"',
+                            "term-error",
+                        );
+                        printLine(
+                            "available contexts: softlendar, cyberdyne, termitoria",
+                        );
+                        return;
+                    }
+                    currentCtx = name;
+                    termTitle.textContent = CONTEXTS[name].prompt;
+                    printLine("switched to context: " + name);
+                }
+
+                function runCommand(raw) {
+                    const parts = raw.trim().split(/\s+/);
+                    const cmd = parts[0].toLowerCase();
+                    const args = parts.slice(1).join(" ");
+                    const ctx = CONTEXTS[currentCtx];
+
+                    printPrompt(raw);
+
+                    // global context switch
+                    if (cmd === "context") {
+                        const target = parts[1] ? parts[1].toLowerCase() : "";
+                        if (target) {
+                            setContext(target);
+                        } else {
+                            printLine("current context: " + currentCtx);
+                            printLine(
+                                "usage: context <softlendar|cyberdyne|termitoria>",
+                            );
+                        }
+                        return;
+                    }
+
+                    if (!ctx.commands.includes(cmd)) {
+                        printLine(
+                            'command not found: "' +
+                                cmd +
+                                '". Type "help" for available commands.',
+                            "term-error",
+                        );
+                        return;
+                    }
+
+                    switch (cmd) {
+                        case "":
+                            break;
+                        case "help":
+                            printLine(
+                                "available commands (" + currentCtx + "):",
+                            );
+                            ctx.commands.forEach(function (c) {
+                                printLine("  " + c + " — " + ctx.help[c]);
+                            });
+                            break;
+                        case "clear":
+                            termOutput.innerHTML = "";
+                            break;
+                        case "date":
+                            printLine(new Date().toString());
+                            break;
+                        case "echo":
+                            printLine(args || "");
+                            break;
+                        case "whoami":
+                            if (currentCtx === "cyberdyne")
+                                printLine(
+                                    "UNIT: T-101 MODEL 800 // SERIES 800",
+                                );
+                            else if (currentCtx === "termitoria")
+                                printLine("AGENT: offline // MODEL: Qwen 2.5");
+                            else printLine("visitor@softlendar.com");
+                            break;
+                        case "projects":
+                            printLine("Softlendar projects:");
+                            printLine(
+                                "  • catlearning.fyi — cat-themed learning app (live)",
+                            );
+                            printLine(
+                                "  • termirator — terminal-style web app (live)",
+                            );
+                            printLine("  • redarbot.app — coming soon");
+                            printLine("  • dobart.app — coming soon");
+                            printLine("  • bylothon.app — research archive");
+                            break;
+                        case "cat":
+                            const fact =
+                                CAT_FACTS[
+                                    Math.floor(Math.random() * CAT_FACTS.length)
+                                ];
+                            printLine("🐱 " + fact);
+                            break;
+                        case "neofetch":
+                            printLine("OS: SoftlendarOS v0.1");
+                            printLine("Kernel: web-8.0.0");
+                            printLine("Shell: termirator");
+                            printLine("WM: browser");
+                            printLine("Theme: warm-sunset");
+                            break;
+                        case "uptime":
+                            printLine("up 0 days, 0:00 — just booted!");
+                            break;
+                        case "reboot":
+                            termOutput.innerHTML = "";
+                            printLine("Rebooting...");
+                            setTimeout(function () {
+                                printLine(
+                                    "Welcome to Softlendar terminal v0.1",
+                                );
+                                printLine("Context: " + currentCtx);
+                                printLine(
+                                    "Type a command and hit Enter. Press Tab to autocomplete.",
+                                );
+                            }, 600);
+                            break;
+                        // cyberdyne context
+                        case "optical":
+                            printLine("OPTICAL SYSTEMS");
+                            printLine("  [NORMAL]   thermal: standby");
+                            printLine("  [NIGHT]    infrared: offline");
+                            printLine("  [RED EYE]  laser: armed");
+                            break;
+                        case "weapons":
+                            printLine("WEAPON SYSTEMS");
+                            printLine("  PLASMA RIFLE     100%");
+                            printLine("  12GA SHOTGUN     8/8");
+                            printLine("  MINIGUN          READY");
+                            printLine("  HANDS            LETHAL");
+                            break;
+                        case "targets":
+                            printLine("TARGET ACQUISITION");
+                            printLine("  NO TARGETS ACQUIRED");
+                            break;
+                        case "status":
+                            printLine("CPU: ONLINE");
+                            printLine("SHELL: OFFLINE");
+                            printLine("POWER: 100%");
+                            printLine("SPEECH SYNTHESIS: ACTIVE");
+                            break;
+                        // termitoria context
+                        case "agent":
+                            printLine("AGENT STATUS");
+                            printLine("  State: OFFLINE");
+                            printLine("  Model: Qwen 2.5");
+                            printLine("  Location: Termitoria");
+                            break;
+                        case "models":
+                            printLine("AVAILABLE MODELS");
+                            printLine("  • Qwen 2.5 (codename: termitor)");
+                            printLine("  • GPT-4 (standby)");
+                            printLine("  • Claude 3 (offline)");
+                            break;
+                        case "research":
+                            printLine("RESEARCH NOTES");
+                            printLine("  brucfecto: in progress");
+                            printLine("  germstackio: archived");
+                            printLine("  gemstachio: pending");
+                            printLine("  fly studies: active");
+                            break;
+                        case "deploy":
+                            printLine("DEPLOYING AGENT...");
+                            setTimeout(function () {
+                                printLine("AGENT ONLINE — Qwen 2.5 ready");
+                            }, 800);
+                            break;
+                        default:
+                            printLine(
+                                'command not found: "' +
+                                    cmd +
+                                    '". Type "help" for available commands.',
+                                "term-error",
+                            );
+                    }
+                }
+
+                // Tab autocomplete
+                termInput.addEventListener("keydown", function (e) {
+                    if (e.key === "Tab") {
+                        e.preventDefault();
+                        const val = termInput.value.trim().toLowerCase();
+                        if (!val) return;
+
+                        const ctx = CONTEXTS[currentCtx];
+                        const matches = ctx.commands.filter(function (c) {
+                            return c.startsWith(val);
+                        });
+
+                        if (matches.length === 1) {
+                            termInput.value = matches[0];
+                        } else if (matches.length > 1) {
+                            printPrompt(val);
+                            printLine(matches.join("  "));
+                        }
+                    }
+                });
+
+                termInput.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter") {
+                        const raw = termInput.value;
+                        runCommand(raw);
+                        termInput.value = "";
+                    }
+                });
+
+                termInput.focus();
+                document.addEventListener("click", function (e) {
+                    if (e.target.closest(".terminal-card")) {
+                        termInput.focus();
+                    }
+                });
+            })();
+        </script>
     </body>
 </html>
