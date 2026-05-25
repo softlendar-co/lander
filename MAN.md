@@ -82,10 +82,13 @@ Kep this man handy so you don't forget!
 
 ### var:2 — termirator landing update
 
-- index.html — future project links removed; marquee labels removed (logos only); termirator_logo.svg, nametermer_logo.svg, haster_logo.svg, and setomoly_logo.svg added to marquee; terminal section added with 3 contexts (softlendar, cyberdyne, termitoria); tab autocomplete; termirator added alongside catlearning.fyi
-- landing.css — terminal styles added (dark card, prompt, output, input, scrollbar); badge categories organized
+- index.html — future project links removed; marquee labels removed (logos only); termirator_logo.svg, nametermer_logo.svg, haster_logo.svg, setomoly_logo.svg, brose_logo.svg, serch_logo.svg added to marquee; terminal section added with 3 contexts (softlendar/cyberdyne/termitoria); tab autocomplete; termirator added alongside catlearning.fyi; favicon replaced with softlendar_logo.svg
+- landing.css — terminal styles added (dark card, prompt, output, input, scrollbar); badge categories organized; badge-float animation added
 - man.md — commit log updated
 - termirator_logo.svg — hex frame T-prompt with blink cursor
 - nametermer_logo.svg — wifi mark with orange N
 - haster_logo.svg — hex frame H with lightning crossbar and speed dot
 - setomoly_logo.svg — atom orbit with nucleus dots and spinning electron
+- brose_logo.svg — browser window with globe and traffic dots
+- serch_logo.svg — magnifying lens with sparkle dots and scan line
+- softlendar_logo.svg — sun with rays, glow ring, S-curve, sparkle dots

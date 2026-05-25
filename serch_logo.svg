@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- outer circle lens -->
+  <circle cx="42" cy="42" r="24" fill="none" stroke="#ff8c42" stroke-width="4"/>
+  <!-- inner lens ring -->
+  <circle cx="42" cy="42" r="18" fill="none" stroke="#ff3c7f" stroke-width="2" opacity="0.5"/>
+  <!-- handle -->
+  <line x1="60" y1="60" x2="82" y2="82" stroke="#ff8c42" stroke-width="6" stroke-linecap="round"/>
+  <!-- sparkle dot 1 -->
+  <circle cx="28" cy="32" r="2.5" fill="#ffd54f" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <!-- sparkle dot 2 -->
+  <circle cx="52" cy="28" r="2" fill="#fff" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.2s" repeatCount="indefinite"/>
+  </circle>
+  <!-- scan line -->
+  <line x1="26" y1="42" x2="58" y2="42" stroke="#ff3c7f" stroke-width="2" opacity="0.6">
+    <animate attributeName="y1" values="42;22;42" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="y2" values="42;22;42" dur="2s" repeatCount="indefinite"/>
+  </line>
+</svg>

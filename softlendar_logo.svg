@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- outer glow ring -->
+  <circle cx="50" cy="50" r="42" fill="none" stroke="#ff8c42" stroke-width="2" opacity="0.4"/>
+  <!-- sun rays -->
+  <line x1="50" y1="6" x2="50" y2="16" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <line x1="50" y1="84" x2="50" y2="94" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <line x1="6" y1="50" x2="16" y2="50" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <line x1="84" y1="50" x2="94" y2="50" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <line x1="19" y1="19" x2="26" y2="26" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <line x1="81" y1="19" x2="74" y2="26" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <line x1="19" y1="81" x2="26" y2="74" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <line x1="81" y1="81" x2="74" y2="74" stroke="#ffd54f" stroke-width="3" stroke-linecap="round"/>
+  <!-- sun body -->
+  <circle cx="50" cy="50" r="20" fill="url(#sunGrad)"/>
+  <defs>
+    <radialGradient id="sunGrad" cx="35%" cy="30%">
+      <stop offset="0%" stop-color="#fff8e1"/>
+      <stop offset="50%" stop-color="#ffd54f"/>
+      <stop offset="100%" stop-color="#ff8c42"/>
+    </radialGradient>
+  </defs>
+  <!-- soft S curve -->
+  <path d="M42 44 Q50 40 54 46 Q56 50 50 52 Q44 54 46 58 Q48 62 54 60" fill="none" stroke="#ff3c7f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <!-- sparkle -->
+  <circle cx="38" cy="38" r="2" fill="#fff" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="64" cy="44" r="1.5" fill="#fff" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="1.4s" repeatCount="indefinite"/>
+  </circle>
+</svg>
