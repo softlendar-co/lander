@@ -51,14 +51,14 @@ Kep this man handy so you don't forget!
 - *shh = shorthand*
 - **any 4 letter word that has consonent at 1st and 3rd letter and vowel in 2nd and at last an e** — cut e = shh
 - **any word that has to vowel in the middle** — cut one vowel from those 2 = shh 
-- **any wrd that has two consonent in the 3rd and 4th places and one vowel in the 2nd place and another consonent at the 1st place** — cut vowel = ssh
+- **any wrd that has two consonent in the 3rd and 4th places and one vowel in the 2nd place and another consonent at the 1st place** — cut vowel = shh
 
 ## Project Rules
 - **if developer say no ned then no ned to ask permission** — just do it yourself
 - **"succceesss" = stage and generate commit msg** — when user says "succceesss", run git add and stage all modified files then generate a commit message (do NOT commit)
 - **in any chats if said listen then listen until said do it** — if user say listen then do not get on it until user say do it or mak it
 **when said commited** — know that it is commited
-**when said deployed** — know that it's liv and run: fetch catlearning.fyi
+**when said deployed** — know that it's liv and run: fetch softlendar.com
 **when said data listen** — listen for detail
 ## Commit Log
 

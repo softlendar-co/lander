@@ -259,6 +259,17 @@ body {
     background: rgba(255, 140, 66, 0.12);
     color: #d4542e;
     border: 1px solid rgba(255, 140, 66, 0.2);
+    animation: badge-float 2.5s ease-in-out infinite;
+}
+
+@keyframes badge-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 /* Links row */
