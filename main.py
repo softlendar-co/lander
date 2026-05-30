@@ -23,7 +23,7 @@ PROJECTS = {
     "catlearning": {
         "title": "catlearning.fyi",
         "tagline": "a cat-themed learning app",
-        "body": "Explore cat facts, pick toys, chat with an AI assistant, run power commands, and join a community of cat lovers.",
+        "body": "Explore cat facts, pick toys, chat with an AI assistant, and run power commands.",
         "stack": "Ruby on Rails 8, PostgreSQL",
         "live": "https://catlearning.fyi",
         "status": "live",
@@ -163,7 +163,56 @@ for slug in PROJECTS:
     app.add_url_rule(f"/{slug}", f"project_{slug}", lambda s=slug: render_project(s))
 
 
+# interType AI assistant
+@app.route("/interType", strict_slashes=False)
+def intertype_page():
+    return send_from_directory(".", "intertype.html")
+
+
+@app.route("/interType/api/chat", methods=["POST"])
+def intertype_chat():
+    data = request.get_json() or {}
+    msg = data.get("message", "").strip().lower()
+
+    replies = {
+        "hello": "Meow! 😺 Welcome to softlendar. I'm 18 interType, here to help with anything about our projects!",
+        "hi": "Hey there! 🌙 Ask me about softlendar, termirator, catlearning, or any of our projects!",
+        "help": "I can tell you about: softlendar (our brand), termirator (terminal app), ct/catlearning.fyi (cat learning), wilgo (systems lang), wildo (web framework), brose, serch, haster, setomoly, nametermer, redarbot, dobart, bylothon.",
+        "projects": "Softlendar projects: termirator (live terminal), catlearning.fyi (live cat app), wilgo + wildo (in dev), brose, serch, haster, setomoly, nametermer, redarbot, dobart, bylothon.",
+        "termirator": "termirator is a terminal-style interactive web app with power commands, context switching (softlendar / cyberdyne / termitoria), and a cyberpunk HUD. Built with Shell, Rust, JS, CSS, HTML. Live at termirator-j795.onrender.com",
+        "catlearning": "catlearning.fyi (ct) is a cat-themed interactive web app: cat facts, toy picker, AI chat, and power commands. Built with Ruby on Rails 8 + PostgreSQL.",
+        "ct": "ct = catlearning.fyi — our original project! A cat-themed learning app built with Ruby on Rails 8 and PostgreSQL.",
+        "wilgo": "wilgo is a friendly systems programming language inspired by Rust. Memory-safe, fast, and warm. Stack: Rust + LLVM. Status: in development.",
+        "wildo": "wildo is the web framework for wilgo. Batteries-included, async by default. Stack: Wilgo + HTML + CSS. Status: in development.",
+        "softlendar": "softlendar.com is our home. We build interactive web experiences — science, stars, cats, code. Current projects: termirator + catlearning.fyi. In dev: wilgo + wildo + more.",
+        "contact": "Reach us at chat@softlendar.com or visit softlendar.com.",
+        "email": "chat@softlendar.com — that's our contact email!",
+        "github": "github.com/softlendar — check our repos there.",
+        "who are you": "I'm 18 interType, the softlendar AI assistant. I know everything about our projects, team, and ecosystem. 🐱",
+        "whoami": "You are a visitor to softlendar.com! I'm 18 interType, your guide. 🌙",
+        "status": "softlendar is active! termirator and catlearning.fyi are live. wilgo + wildo are in development. redarbot, dobart, bylothon are coming soon.",
+    }
+
+    # exact match
+    if msg in replies:
+        return jsonify({"reply": replies[msg]})
+
+    # partial match
+    for key, reply in replies.items():
+        if key in msg:
+            return jsonify({"reply": reply})
+
+    # fallback
+    return jsonify(
+        {
+            "reply": "*purr* I don't know that yet! Try asking about: softlendar, termirator, catlearning, wilgo, wildo, or type 'help' for options."
+        }
+    )
+
+
 # Static assets
+
+
 @app.route("/<path:filename>")
 def static_files(filename):
     return send_from_directory(".", filename)

@@ -1,0 +1,33 @@
+/* Add to landing.css — volume bars on sides using negative margin */
+
+.gradient-section {
+    position: relative;
+}
+
+.volume-bar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 40px;
+    z-index: 5;
+}
+
+.volume-bar.left-bar {
+    left: -60px;  /* negative margin pulls it left of card */
+}
+
+.volume-bar.right-bar {
+    right: -60px; /* negative margin pulls it right of card */
+}
+
+.volume-bar .bar {
+    width: 6px;
+    border-radius: 3px;
+    animation: volume-dance 1.2s ease-in-out infinite alternate;
+}
+
+/* Keep your existing rainbow colors */

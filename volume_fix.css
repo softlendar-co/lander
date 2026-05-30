@@ -1,0 +1,27 @@
+.feature-card {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.volume-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 32px;
+}
+
+.volume-bar .bar {
+    width: 6px;
+    border-radius: 3px;
+    animation: volume-dance 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes volume-dance {
+    0% { transform: scaleY(0.4); opacity: 0.5; }
+    100% { transform: scaleY(1.2); opacity: 1; }
+}

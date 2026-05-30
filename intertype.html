@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>18 interType — softlendar AI assistant</title>
+        <link rel="stylesheet" href="/intertype.css" />
+        <link rel="icon" href="/softlendar_logo.svg" />
+    </head>
+    <body>
+        <!-- Overlay -->
+        <div class="it-overlay" id="it-overlay"></div>
+
+        <!-- Sidebar -->
+        <div class="it-sidebar" id="it-sidebar">
+            <div class="it-sidebar-head">
+                <div class="it-sidebar-logo">🌙</div>
+                <div class="it-sidebar-title">18 interType</div>
+            </div>
+            <div class="it-sidebar-item active" data-view="chat">
+                💬 New Chat
+            </div>
+            <div class="it-sidebar-item" data-view="history">📜 History</div>
+            <div class="it-sidebar-item" data-view="settings">⚙️ Settings</div>
+            <div class="it-sidebar-item" data-view="help">❓ Help</div>
+        </div>
+
+        <!-- Header -->
+        <div class="it-header">
+            <span class="it-ham" id="it-ham">☰</span>
+            <span class="it-moon" id="it-moon">🌙</span>
+            <span class="it-title">🆕 New Chat</span>
+            <span class="it-history" id="it-history-btn">History</span>
+            <span class="it-settings" id="it-settings-btn">⚙️</span>
+            <span class="it-help" id="it-help-btn">❓</span>
+        </div>
+
+        <!-- Back -->
+        <div class="it-back" id="it-back">&larr; back</div>
+
+        <!-- Main -->
+        <div class="it-main">
+            <div class="it-number"># 18 interType</div>
+            <div class="it-avatars">
+                <span>😸</span>
+                <span>🦘</span>
+            </div>
+            <div class="it-greeting">
+                Meow! 😺 I'm 18 interType, your softlendar AI assistant. Ask me
+                anything about softlendar.com!
+            </div>
+            <div id="it-chat" class="it-chat"></div>
+        </div>
+
+        <!-- Input -->
+        <div class="it-input-wrap">
+            <input
+                id="it-input"
+                class="it-input"
+                type="text"
+                placeholder="Type a message"
+                autocomplete="off"
+                spellcheck="false"
+            />
+            <button class="it-btn" id="it-stop">⏹</button>
+            <button class="it-btn" id="it-send">➤</button>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="it-modal" id="it-settings-modal">
+            <div class="it-modal-bg" data-close="settings"></div>
+            <div class="it-modal-box">
+                <div class="it-modal-head">
+                    <div class="it-modal-title">⚙️ Settings</div>
+                    <div class="it-modal-close" data-close="settings">
+                        &times;
+                    </div>
+                </div>
+                <div class="it-modal-body">
+                    <div class="it-toggle-row">
+                        <span class="it-toggle-label">Dark Mode</span>
+                        <div class="it-toggle on" id="it-dark-toggle"></div>
+                    </div>
+                    <div class="it-toggle-row">
+                        <span class="it-toggle-label">Auto Read</span>
+                        <div class="it-toggle" id="it-autoread-toggle"></div>
+                    </div>
+                    <p
+                        style="
+                            margin-top: 16px;
+                            color: var(--muted);
+                            font-size: 0.8rem;
+                        "
+                    >
+                        18 interType v1.0 — softlendar AI assistant
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div class="it-modal" id="it-help-modal">
+            <div class="it-modal-bg" data-close="help"></div>
+            <div class="it-modal-box">
+                <div class="it-modal-head">
+                    <div class="it-modal-title">❓ Help</div>
+                    <div class="it-modal-close" data-close="help">&times;</div>
+                </div>
+                <div class="it-modal-body">
+                    <p>
+                        <strong>18 interType</strong> is your softlendar AI
+                        assistant.
+                    </p>
+                    <p>Ask me about:</p>
+                    <p>• <strong>softlendar</strong> — our brand and mission</p>
+                    <p>
+                        • <strong>termirator</strong> — terminal-style web app
+                    </p>
+                    <p>
+                        • <strong>catlearning / ct</strong> — cat learning
+                        platform
+                    </p>
+                    <p>• <strong>wilgo</strong> — systems language</p>
+                    <p>• <strong>wildo</strong> — web framework</p>
+                    <p>
+                        •
+                        <strong
+                            >brose, serch, haster, setomoly, nametermer</strong
+                        >
+                    </p>
+                    <p>
+                        • <strong>redarbot, dobart, bylothon</strong> — upcoming
+                    </p>
+                    <p>
+                        Type <code>help</code> or <code>projects</code> for a
+                        full list.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Modal -->
+        <div class="it-modal" id="it-history-modal">
+            <div class="it-modal-bg" data-close="history"></div>
+            <div class="it-modal-box">
+                <div class="it-modal-head">
+                    <div class="it-modal-title">📜 Chat History</div>
+                    <div class="it-modal-close" data-close="history">
+                        &times;
+                    </div>
+                </div>
+                <div class="it-modal-body">
+                    <div class="it-history-list" id="it-history-list">
+                        <div class="it-history-empty">
+                            No chats yet. Start a conversation! 💬
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/intertype.js"></script>
+    </body>
+</html>

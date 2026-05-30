@@ -42,31 +42,30 @@ Kep this man handy so you don't forget!
 - Sm shorthands save sm time!
 ### Total: 21 Shorthands
 ## technic
-***overview** = tak a lok at evryfiles related to current project*
+***overview** = take a look at every file related to current project*
 ***redo** = cut/rm current project and rebuild it*
 ## Developing works
 ***feedyday** = user comment, complain, feedback;*
 ***logoday** = logo updating*
 ## Shorthand Rules
 - *shh = shorthand*
-- **any 4 letter word that has consonent at 1st and 3rd letter and vowel in 2nd and at last an e** — cut e = shh
-- **any word that has to vowel in the middle** — cut one vowel from those 2 = shh 
-- **any wrd that has two consonent in the 3rd and 4th places and one vowel in the 2nd place and another consonent at the 1st place** — cut vowel = shh
+- **any 4 letter word that has consonant at 1st and 3rd letter and vowel in 2nd and at last an e** — cut e = shh
+- **any word that has two vowels in the middle** — cut one vowel from those 2 = shh
+- **any word that has two consonants in the 3rd and 4th places and one vowel in the 2nd place and another consonant at the 1st place** — cut vowel = shh
 - use **data/import lng**
 
 ## Project Rules
-- **if developer say no ned then no ned to ask permission** — just do it yourself
-- **"succceesss" = stage and generate commit msg** — when user says "succceesss", run git add and stage all modified files then generate a commit message (do NOT commit)
+- **"succcceeessss" = stage & generate commit msg & add commit logsso succce** — when user says "succceesss", run git add and stage all modified files then generate a commit message (do NOT commit)
 - **in any chats if said listen then listen until said do it** — if user say listen then do not get on it until user say do it or mak it
-**when said commited** — know that it is commited
-**when said deployed** — know that it's liv and run: fetch softlendar.com
-**when said data listen** — listen for detail
+- **when said committed** — know that it is committed
+- **when said deployed** — know that it's live and run: fetch softlendar.com
+- **when said data listen** — listen for detail
 ## Commit Log
 
 ### var:0 — initial commit
 
 - index.html — login modal added, keyboard shortcut button added
-- ct.js — Login() updated to use modal instead of prompt(), welcom h1 shows username
+- ct.js — Login() updated to use modal instead of prompt(), welcome h1 shows username
 - ct.css — login overlay, box, inputs, button, error styles added
 - keymap-ct.js — keyboard shortcuts (T, V, 1-4, H, W, N, ?)
 - sound-ct.js — playSound() using Web Speech API with voice loading fix
@@ -77,13 +76,13 @@ Kep this man handy so you don't forget!
 
 ### var:1 — power command system
 
-- power-ct.js — time-travel command system created (commit save, commit log, commit now, chnge code to date=, chnge code to var=)
+- power-ct.js — time-travel command system created (commit save, commit log, commit now, change code to date=, change code to var=)
 - index.html — added power-ct.js script link, command input box with run button
 - ct.css — power command box styles (black background, green terminal text, lawngreen borders)
 
 ### var:2 — termirator landing update
 
-- index.html — future project links removed; marquee labels removed (logos only); nav bar added with smooth-scroll anchors; termirator_logo.svg, nametermer_logo.svg, haster_logo.svg, setomoly_logo.svg, brose_logo.svg, serch_logo.svg added to marquee; terminal section added with 3 contexts (softlendar/cyberdyne/termitoria); tab autocomplete; termirator added alongside catlearning.fyi; contact form added with email backend; favicon replaced with softlendar_logo.svg
+- index.html — future project links removed; marquee labels removed (logos only); nav bar added with smooth-scroll anchors; termirator_logo.svg, nametermer_logo.svg, haster_logo.svg, setomoly_logo.svg, brose_logo.svg, serch_logo.svg added to marquee; terminal section added with 3 contexts (softlender/cyberdyne/termitoria); tab autocomplete; termirator added alongside catlearning.fyi; contact form added with email backend; favicon replaced with softlendar_logo.svg
 - landing.css — terminal styles added (dark card, prompt, output, input, scrollbar); badge categories organized; badge-float animation added; contact form styles added (gradient bg, frosted card, animated button with loader); nav bar styles added
 - main.py — Flask backend with /, /contact (POST), /api/projects, /api/health, and dynamic project detail routes (/softlendar, /catlearning, /termirator, /brose, /serch, /nametermer, /haster, /setomoly, /redarbot, /dobart, /bylothon)
 - project.html — project detail page template with logo, tagline, description, stack, status, and visit button
@@ -97,3 +96,12 @@ Kep this man handy so you don't forget!
 - brose_logo.svg — browser window with globe and traffic dots
 - serch_logo.svg — magnifying lens with sparkle dots and scan line
 - softlendar_logo.svg — sun with rays, glow ring, S-curve, sparkle dots
+
+### var:3 — back link styling and routing
+
+- landing.css — `.intertype-back` styled as gradient pill button with shadow and hover lift effect
+- intertype.css — `.it-back` styled as gradient pill button using CSS vars with shadow and hover lift effect
+- project.html — `.back-link` styled as gradient pill button with shadow and hover lift effect
+- 404.html — `.back-home` hover updated to match lift effect
+- intertype.js — `goBack()` changed from `window.history.back()` to `window.location.href = "/"` to avoid returning to /interType/
+- index.html — `.intertype-back` changed from `<div>` to `<a href="/">` so it navigates to root
