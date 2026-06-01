@@ -115,3 +115,7 @@ Kep this man handy so you don't forget!
 - index.html — alarm widget added: ⏰ fixed button, pulsing fullscreen ring overlay with "Alarm rang!" message, Web Audio API do-re-mi melody (10 notes), auto-dismiss after 3s; settings panel dark-mode toggle and theme persistence added
 - landing.css — alarm widget styles added (.alarm-btn, .alarm-ring, .alarm-ring-inner, alarmPulse keyframes); settings-panel dark overrides refined
 - MAN.md — "alwasys plan before act" rule added
+
+### var:5 — README polish
+
+- README.md — fixed live demo link label (`soflendar` → `softlendar`); removed italics from "engine" and "assistant" for consistent bold emphasis; cleaned grammar ("theres" → "there's", added "on top-right" detail)
