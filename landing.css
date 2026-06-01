@@ -1434,7 +1434,7 @@ body {
 }
 
 /* ===================================================================================
- * SETTINGS PANEL (top-right toggle)
+ * SETTINGS PANEL
  * =================================================================================== */
 .settings-btn {
     position: fixed;
@@ -1571,6 +1571,80 @@ body {
 }
 .settings-play-btn:hover {
     transform: scale(1.05);
+}
+
+/* ===================================================================================
+ * ALARM WIDGET
+ * =================================================================================== */
+.alarm-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 900;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd43b, #ff8c42);
+    border: none;
+    box-shadow: 0 4px 16px rgba(255, 140, 66, 0.35);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.alarm-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 24px rgba(255, 140, 66, 0.5);
+}
+
+.alarm-ring {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    background: rgba(0, 0, 0, 0.55);
+}
+.alarm-ring.ringing {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.alarm-ring-inner {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd43b, #ff8c42);
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 0 0 rgba(255, 140, 66, 0);
+    animation: alarmPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes alarmPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 140, 66, 0.4);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 30px rgba(255, 140, 66, 0);
+    }
 }
 
 /* ---------- THEME OVERRIDES ---------- */

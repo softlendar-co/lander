@@ -55,7 +55,8 @@ Kep this man handy so you don't forget!
 - use **data/import lng**
 
 ## Project Rules
-- **"succcceeessss" = stage & generate commit msg & add commit logsso succce** — when user says "succceesss", run git add and stage all modified files then generate a commit message (do NOT commit)
+- ***alwasys plan before act***
+- **"scc" = stage & generate commit msg & add commit logsso succce** — when user says "succceesss", run git add and stage all modified files then generate a commit message (do NOT commit)
 - **in any chats if said listen then listen until said do it** — if user say listen then do not get on it until user say do it or mak it
 - **when said committed** — know that it is committed
 - **when said deployed** — know that it's live and run: fetch softlendar.com
@@ -105,3 +106,10 @@ Kep this man handy so you don't forget!
 - 404.html — `.back-home` hover updated to match lift effect
 - intertype.js — `goBack()` changed from `window.history.back()` to `window.location.href = "/"` to avoid returning to /interType/
 - index.html — `.intertype-back` changed from `<div>` to `<a href="/">` so it navigates to root
+
+### var:4 — interType chat polish + alarm widget
+
+- intertype.js — rotating greeting and help responses added (GREETING_RESPONSES + GREETING_RESPONSES arrays with index rotation); `isHelp()` detection added; typing dots delay logic updated (3s for greetings, 5s for help)
+- index.html — alarm widget added: ⏰ fixed button, pulsing fullscreen ring overlay with "Alarm rang!" message, Web Audio API do-re-mi melody (10 notes), auto-dismiss after 3s; settings panel dark-mode toggle and theme persistence added
+- landing.css — alarm widget styles added (.alarm-btn, .alarm-ring, .alarm-ring-inner, alarmPulse keyframes); settings-panel dark overrides refined
+- MAN.md — "alwasys plan before act" rule added

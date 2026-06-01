@@ -34,9 +34,50 @@
   /* Text classification helpers */
   const GREETINGS =
     /^(hi|hello|hey|howdy|hola|gm|gn|ge|yo|sup|namaste|bonjour|greetings|morning|evening|afternoon)(\s|!|\?|$)/i;
+  const HELPS =
+    /^(help|hlp|assist|support|guide|commands|what.*can.*(you|u)|what.*do)(\s|!|\?|$)/i;
 
   function isGreeting(text) {
     return GREETINGS.test(text);
+  }
+
+  function isHelp(text) {
+    return HELPS.test(text);
+  }
+
+  /* Rotating responses */
+  const GREETING_RESPONSES = [
+    "Meow! 😺 I'm 18 interType, your softlendar AI assistant. Ask me anything about softlendar projects!",
+    "Hey there! 🌙 Ready to explore softlendar?",
+    "Hi! 😸 What can I help you with today?",
+    "Hello! 🦘 Jump into any topic — science, stars, cats, or code!",
+    "Greetings! ☀️ Softlendar at your service.",
+    "Yo! 🐱 Let's build something curious together.",
+    "Hola! 🌟 Ask me about our projects — termirator, ct, wilgo, and more!",
+    "Namaste! 🙏 Peace, curiosity, and code.",
+  ];
+
+  const HELP_RESPONSES = [
+    "I can tell you about:\n• softlendar — our brand and mission\n• termirator — terminal-style web app\n• ct — cat learning platform\n• wilgo — systems language\n• wildo — web framework\n• brose, serch, haster, setomoly, nametermer\n• redarbot, dobart, bylothon — upcoming\n\nJust ask!",
+    "Here is what I know:\n• **softlendar** — science, cats, stars, code\n• **termirator** — cyberpunk terminal HUD\n• **ct** — cat-themed learning app\n• **wilgo** + **wildo** — language + framework\n• More projects in the pipeline! 🚀",
+    "Ask me about any softlendar project:\ntermirator · ct · wilgo · wildo · brose · serch · haster · setomoly · nametermer · redarbot · dobart · bylothon",
+    "Need help? I am your guide to:\n🖥️ termirator — terminal web app\n🐾 ct — cat learning platform\n💻 wilgo / wildo — dev tools\n🔮 redarbot, dobart, bylothon — coming soon",
+    "Type a project name or ask a question. I will do my best to answer! 💬",
+  ];
+
+  let greetIndex = 0;
+  let helpIndex = 0;
+
+  function nextGreeting() {
+    const msg = GREETING_RESPONSES[greetIndex];
+    greetIndex = (greetIndex + 1) % GREETING_RESPONSES.length;
+    return msg;
+  }
+
+  function nextHelp() {
+    const msg = HELP_RESPONSES[helpIndex];
+    helpIndex = (helpIndex + 1) % HELP_RESPONSES.length;
+    return msg;
   }
 
   /* Helpers */
@@ -81,10 +122,23 @@
     input.value = "";
 
     const greeting = isGreeting(text);
-    const delay = greeting ? 3000 : 5000;
+    const helpReq = isHelp(text);
 
     const card = createAnswerCard(null);
-    await wait(delay);
+
+    if (greeting || helpReq) {
+      const delay = greeting ? 3000 : 5000;
+      await wait(delay);
+      const reply = greeting ? nextGreeting() : nextHelp();
+      card.textContent = reply;
+      history.push({ role: "bot", text: reply, time: Date.now() });
+      if (autoRead) speak(reply);
+      chat.scrollTop = chat.scrollHeight;
+      updateHistoryUI();
+      return;
+    }
+
+    await wait(500);
 
     try {
       const res = await fetch("/interType/api/chat", {
