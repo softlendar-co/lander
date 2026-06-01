@@ -56,7 +56,7 @@ Kep this man handy so you don't forget!
 
 ## Project Rules
 - ***alwasys plan before act***
-- **"scc" = stage & generate commit msg & add commit logsso succce** — when user says "succceesss", run git add and stage all modified files then generate a commit message (do NOT commit)
+- **"scc" = stage & generate commit msg & update commit logs** — when user says "scc", run git add and stage all modified files then generate a commit message (do NOT commit)
 - **in any chats if said listen then listen until said do it** — if user say listen then do not get on it until user say do it or mak it
 - **when said committed** — know that it is committed
 - **when said deployed** — know that it's live and run: fetch softlendar.com
