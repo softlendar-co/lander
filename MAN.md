@@ -119,3 +119,11 @@ Kep this man handy so you don't forget!
 ### var:5 — README polish
 
 - README.md — fixed live demo link label (`soflendar` → `softlendar`); removed italics from "engine" and "assistant" for consistent bold emphasis; cleaned grammar ("theres" → "there's", added "on top-right" detail)
+
+### var:6 — interType profile system + technoly keyword + homepage greeting
+
+- intertype.js — profile localStorage helpers (`getUserName`, `getUserLogo`, `updateProfilePreview`, `loadProfile`, `saveProfile`); `TECHNOLY` keyword regex + `isTechnoly()`; user message bubble refactored to avatar + username + message wrap; profile modal wired to open/close
+- intertype.html — `👤` profile button in header, profile sidebar item, profile modal with logo preview, username input, file upload, save button
+- intertype.css — profile modal styles (`.it-profile-wrap`, `.it-profile-row`, `.it-profile-preview`, `.it-profile-save`); user message avatar layout (`.it-msg-user-wrap`, `.it-msg-user-avatar`, `.it-msg-user-col`, `.it-msg-user-name`); profile button responsive hide
+- index.html — hero greeting `<p class="hero-greeting">` added below `.hero-sub`; inline script reads `intertype-user` from localStorage and displays "Welcome {username}!"
+- landing.css — `.settings-btn` position changed from `right: 16px` to `left: 16px`

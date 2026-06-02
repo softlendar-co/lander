@@ -23,6 +23,7 @@
             <div class="it-sidebar-item" data-view="history">📜 History</div>
             <div class="it-sidebar-item" data-view="settings">⚙️ Settings</div>
             <div class="it-sidebar-item" data-view="help">❓ Help</div>
+            <div class="it-sidebar-item" data-view="profile">👤 Profile</div>
         </div>
 
         <!-- Header -->
@@ -33,6 +34,7 @@
             <span class="it-history" id="it-history-btn">History</span>
             <span class="it-settings" id="it-settings-btn">⚙️</span>
             <span class="it-help" id="it-help-btn">❓</span>
+            <span class="it-profile" id="it-profile-btn">👤</span>
         </div>
 
         <!-- Back -->
@@ -135,6 +137,61 @@
                         Type <code>help</code> or <code>projects</code> for a
                         full list.
                     </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Modal -->
+        <div class="it-modal" id="it-profile-modal">
+            <div class="it-modal-bg" data-close="profile"></div>
+            <div class="it-modal-box">
+                <div class="it-modal-head">
+                    <div class="it-modal-title">👤 Profile</div>
+                    <div class="it-modal-close" data-close="profile">
+                        &times;
+                    </div>
+                </div>
+                <div class="it-modal-body">
+                    <div
+                        class="it-profile-row"
+                        style="justify-content: center; border-bottom: none"
+                    >
+                        <div class="it-profile-preview" id="profile-preview">
+                            #19
+                        </div>
+                    </div>
+                    <div class="it-profile-row">
+                        <span class="it-toggle-label">Username</span>
+                        <input
+                            type="text"
+                            id="profile-username"
+                            class="it-input"
+                            style="max-width: 180px; padding: 8px 12px"
+                            placeholder="Username"
+                            autocomplete="off"
+                        />
+                    </div>
+                    <div class="it-profile-row">
+                        <span class="it-toggle-label">Logo</span>
+                        <input
+                            type="file"
+                            id="profile-logo"
+                            accept="image/*"
+                            style="
+                                max-width: 180px;
+                                font-size: 0.8rem;
+                                color: var(--text);
+                            "
+                        />
+                    </div>
+                    <div
+                        class="it-profile-row"
+                        style="justify-content: center; border-bottom: none"
+                    >
+                        <button class="it-profile-save" id="profile-save-btn">
+                            Save
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -15,10 +15,17 @@
   const settingsBtn = document.getElementById("it-settings-btn");
   const helpBtn = document.getElementById("it-help-btn");
   const historyBtn = document.getElementById("it-history-btn");
+  const profileBtn = document.getElementById("it-profile-btn");
 
   const settingsModal = document.getElementById("it-settings-modal");
   const helpModal = document.getElementById("it-help-modal");
   const historyModal = document.getElementById("it-history-modal");
+  const profileModal = document.getElementById("it-profile-modal");
+
+  const profilePreview = document.getElementById("profile-preview");
+  const profileUsername = document.getElementById("profile-username");
+  const profileLogo = document.getElementById("profile-logo");
+  const profileSaveBtn = document.getElementById("profile-save-btn");
 
   const darkToggle = document.getElementById("it-dark-toggle");
   const autoreadToggle = document.getElementById("it-autoread-toggle");
@@ -36,6 +43,7 @@
     /^(hi|hello|hey|howdy|hola|gm|gn|ge|yo|sup|namaste|bonjour|greetings|morning|evening|afternoon)(\s|!|\?|$)/i;
   const HELPS =
     /^(help|hlp|assist|support|guide|commands|what.*can.*(you|u)|what.*do)(\s|!|\?|$)/i;
+  const TECHNOLY = /^(technoly|technologi|technology|tech)(\s|!|\?|$)/i;
 
   function isGreeting(text) {
     return GREETINGS.test(text);
@@ -43,6 +51,10 @@
 
   function isHelp(text) {
     return HELPS.test(text);
+  }
+
+  function isTechnoly(text) {
+    return TECHNOLY.test(text);
   }
 
   /* Rotating responses */
@@ -80,18 +92,114 @@
     return msg;
   }
 
+  /* Profile helpers */
+  function getUserName() {
+    try {
+      return localStorage.getItem("intertype-user");
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getUserLogo() {
+    try {
+      return localStorage.getItem("intertype-logo");
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function updateProfilePreview() {
+    const user = getUserName() || "#19";
+    const logo = getUserLogo();
+    if (logo) {
+      profilePreview.innerHTML =
+        '<img class="it-profile-avatar" src="' + logo + '" alt="">';
+    } else {
+      profilePreview.textContent = user;
+    }
+  }
+
+  function loadProfile() {
+    const savedUser = getUserName();
+    if (savedUser) {
+      profileUsername.value = savedUser;
+    }
+    updateProfilePreview();
+  }
+
+  function saveProfile() {
+    const username = profileUsername.value.trim();
+    const file = profileLogo.files[0];
+    if (username) {
+      try {
+        localStorage.setItem("intertype-user", username);
+      } catch (e) {}
+    } else {
+      try {
+        localStorage.removeItem("intertype-user");
+      } catch (e) {}
+    }
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        try {
+          localStorage.setItem("intertype-logo", reader.result);
+        } catch (e) {}
+        updateProfilePreview();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      updateProfilePreview();
+    }
+    closeModal("profile");
+  }
+
   /* Helpers */
   function addMessage(text, isUser) {
-    const div = document.createElement("div");
-    div.className = "it-message " + (isUser ? "it-user" : "it-bot");
-    div.textContent = text;
-    chat.appendChild(div);
-    chat.scrollTop = chat.scrollHeight;
-    if (isUser) {
-      history.push({ role: "user", text: text, time: Date.now() });
-    } else {
+    if (!isUser) {
+      const div = document.createElement("div");
+      div.className = "it-message it-bot";
+      div.textContent = text;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
       history.push({ role: "bot", text: text, time: Date.now() });
+      updateHistoryUI();
+      return;
     }
+
+    const wrap = document.createElement("div");
+    wrap.className = "it-msg-user-wrap";
+
+    const avatar = document.createElement("div");
+    avatar.className = "it-msg-user-avatar";
+    const logo = getUserLogo();
+    const user = getUserName() || "#19";
+    if (logo) {
+      avatar.innerHTML =
+        '<img class="it-profile-avatar" src="' + logo + '" alt="">';
+    } else {
+      avatar.textContent = user;
+    }
+
+    const col = document.createElement("div");
+    col.className = "it-msg-user-col";
+
+    const nameLabel = document.createElement("div");
+    nameLabel.className = "it-msg-user-name";
+    nameLabel.textContent = user;
+
+    const msg = document.createElement("div");
+    msg.className = "it-message it-user";
+    msg.textContent = text;
+
+    col.appendChild(nameLabel);
+    col.appendChild(msg);
+    wrap.appendChild(avatar);
+    wrap.appendChild(col);
+    chat.appendChild(wrap);
+    chat.scrollTop = chat.scrollHeight;
+    history.push({ role: "user", text: text, time: Date.now() });
     updateHistoryUI();
   }
 
@@ -123,13 +231,17 @@
 
     const greeting = isGreeting(text);
     const helpReq = isHelp(text);
+    const technolyReq = isTechnoly(text);
 
     const card = createAnswerCard(null);
 
-    if (greeting || helpReq) {
+    if (greeting || helpReq || technolyReq) {
       const delay = greeting ? 3000 : 5000;
       await wait(delay);
-      const reply = greeting ? nextGreeting() : nextHelp();
+      let reply;
+      if (greeting) reply = nextGreeting();
+      else if (helpReq) reply = nextHelp();
+      else reply = "🏷️ softlendar badge";
       card.textContent = reply;
       history.push({ role: "bot", text: reply, time: Date.now() });
       if (autoRead) speak(reply);
@@ -282,6 +394,7 @@
         if (view === "settings") openModal("settings");
         if (view === "help") openModal("help");
         if (view === "history") openModal("history");
+        if (view === "profile") openModal("profile");
       });
     });
 
@@ -299,6 +412,15 @@
     historyBtn.addEventListener("click", function () {
       openModal("history");
     });
+  }
+  if (profileBtn) {
+    profileBtn.addEventListener("click", function () {
+      loadProfile();
+      openModal("profile");
+    });
+  }
+  if (profileSaveBtn) {
+    profileSaveBtn.addEventListener("click", saveProfile);
   }
 
   document.querySelectorAll("[data-close]").forEach(function (el) {
@@ -319,5 +441,6 @@
 
   /* Init */
   applyTheme();
+  loadProfile();
   input.focus();
 })();

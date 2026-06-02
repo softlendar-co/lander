@@ -102,7 +102,8 @@ body {
 .it-history,
 .it-settings,
 .it-help,
-.it-autoread {
+.it-autoread,
+.it-profile {
     font-size: 0.8rem;
     color: var(--muted);
     cursor: pointer;
@@ -115,7 +116,8 @@ body {
 .it-history:hover,
 .it-settings:hover,
 .it-help:hover,
-.it-autoread:hover {
+.it-autoread:hover,
+.it-profile:hover {
     color: var(--accent);
     background: rgba(255, 140, 66, 0.08);
 }
@@ -587,6 +589,110 @@ body {
 }
 
 /* ===================================================================================
+ * PROFILE MODAL
+ * =================================================================================== */
+
+.it-profile-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.it-profile-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+}
+
+.it-profile-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.it-profile-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.it-profile-save {
+    margin-top: 8px;
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+.it-profile-save:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(255, 60, 127, 0.35);
+}
+
+/* ===================================================================================
+ * USER MESSAGE WRAP
+ * =================================================================================== */
+
+.it-msg-user-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: flex-end;
+}
+
+.it-msg-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.it-msg-user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.it-msg-user-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.it-msg-user-name {
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1;
+}
+
+/* ===================================================================================
  * RESPONSIVE
  * =================================================================================== */
 
@@ -598,7 +704,8 @@ body {
 
     .it-history,
     .it-settings,
-    .it-help {
+    .it-help,
+    .it-profile {
         display: none;
     }
 
