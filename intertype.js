@@ -37,6 +37,8 @@
   let dark = true;
   let autoRead = false;
   let history = [];
+  let generating = false;
+  let activeCard = null;
 
   /* Text classification helpers */
   const GREETINGS =
@@ -233,24 +235,29 @@
     const helpReq = isHelp(text);
     const technolyReq = isTechnoly(text);
 
-    const card = createAnswerCard(null);
+    generating = true;
+    activeCard = createAnswerCard(null);
 
     if (greeting || helpReq || technolyReq) {
       const delay = greeting ? 3000 : 5000;
       await wait(delay);
+      if (!generating) return;
       let reply;
       if (greeting) reply = nextGreeting();
       else if (helpReq) reply = nextHelp();
       else reply = "🏷️ softlendar badge";
-      card.textContent = reply;
+      activeCard.textContent = reply;
       history.push({ role: "bot", text: reply, time: Date.now() });
       if (autoRead) speak(reply);
       chat.scrollTop = chat.scrollHeight;
       updateHistoryUI();
+      generating = false;
+      activeCard = null;
       return;
     }
 
     await wait(500);
+    if (!generating) return;
 
     try {
       const res = await fetch("/interType/api/chat", {
@@ -259,13 +266,15 @@
         body: JSON.stringify({ message: text }),
       });
       const data = await res.json();
-      card.textContent = data.reply;
+      if (!generating) return;
+      activeCard.textContent = data.reply;
       history.push({ role: "bot", text: data.reply, time: Date.now() });
       if (autoRead) speak(data.reply);
       chat.scrollTop = chat.scrollHeight;
       updateHistoryUI();
     } catch (e) {
-      card.textContent = "*purr* Something went wrong. Try again?";
+      if (!generating) return;
+      activeCard.textContent = "*purr* Something went wrong. Try again?";
       history.push({
         role: "bot",
         text: "*purr* Something went wrong. Try again?",
@@ -274,6 +283,9 @@
       if (autoRead) speak("Something went wrong. Try again?");
       chat.scrollTop = chat.scrollHeight;
       updateHistoryUI();
+    } finally {
+      generating = false;
+      activeCard = null;
     }
   }
 
@@ -371,6 +383,13 @@
     if (e.key === "Enter") send();
   });
   stopBtn.addEventListener("click", function () {
+    if (generating) {
+      generating = false;
+      if (activeCard && activeCard.parentNode) {
+        activeCard.remove();
+      }
+      activeCard = null;
+    }
     input.value = "";
     input.focus();
   });
