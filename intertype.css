@@ -111,6 +111,7 @@ body {
     white-space: nowrap;
     padding: 4px 8px;
     border-radius: 6px;
+    text-decoration: none;
 }
 
 .it-history:hover,

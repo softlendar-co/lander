@@ -81,8 +81,53 @@
                 <a href="mailto:shambilaiyaz@proton.me" class="hero-nav-link"
                     >Contact</a
                 >
+                <a href="#" class="hero-nav-link" id="hero-profile-btn">👤</a>
             </div>
         </nav>
+
+        <!-- Profile Modal -->
+        <div class="pf-modal" id="pf-modal">
+            <div class="pf-modal-bg" data-pf-close></div>
+            <div class="pf-modal-box">
+                <div class="pf-modal-head">
+                    <div class="pf-modal-title">👤 Profile</div>
+                    <div class="pf-modal-close" data-pf-close>&times;</div>
+                </div>
+                <div class="pf-modal-body">
+                    <div
+                        class="pf-row"
+                        style="justify-content: center; border-bottom: none"
+                    >
+                        <div class="pf-preview" id="pf-preview">#19</div>
+                    </div>
+                    <div class="pf-row">
+                        <span class="pf-label">Username</span>
+                        <input
+                            type="text"
+                            id="pf-username"
+                            class="pf-input"
+                            placeholder="Username"
+                            autocomplete="off"
+                        />
+                    </div>
+                    <div class="pf-row">
+                        <span class="pf-label">Logo</span>
+                        <input
+                            type="file"
+                            id="pf-logo"
+                            accept="image/*"
+                            style="max-width: 180px; font-size: 0.8rem"
+                        />
+                    </div>
+                    <div
+                        class="pf-row"
+                        style="justify-content: center; border-bottom: none"
+                    >
+                        <button class="pf-save" id="pf-save-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Top 30%: Glowing Sun Hero -->
         <section class="hero-section">
@@ -259,7 +304,9 @@
             </div>
 
             <div class="paws" aria-hidden="true">☀️☀️☀️</div>
-            <div class="footer-note">softlendar.com — built with ❤️</div>
+            <div class="footer-note">
+                softlendar.com ❤️ — built with intercore!
+            </div>
         </section>
 
         <!-- Interactive Red Wave -->
@@ -1245,6 +1292,100 @@
                 }
 
                 if (alarmBtn) alarmBtn.addEventListener("click", ring);
+            })();
+        </script>
+        <script>
+            (function () {
+                const modal = document.getElementById("pf-modal");
+                const preview = document.getElementById("pf-preview");
+                const usernameInput = document.getElementById("pf-username");
+                const logoInput = document.getElementById("pf-logo");
+                const saveBtn = document.getElementById("pf-save-btn");
+                const profileBtn = document.getElementById("hero-profile-btn");
+
+                function getUser() {
+                    try {
+                        return localStorage.getItem("intertype-user");
+                    } catch (e) {
+                        return null;
+                    }
+                }
+                function getLogo() {
+                    try {
+                        return localStorage.getItem("intertype-logo");
+                    } catch (e) {
+                        return null;
+                    }
+                }
+
+                function updatePreview() {
+                    var user = getUser() || "#19";
+                    var logo = getLogo();
+                    if (logo) {
+                        preview.innerHTML =
+                            '<img src="' +
+                            logo +
+                            '" alt="" style="width:100%;height:100%;object-fit:cover;" />';
+                    } else {
+                        preview.textContent = user;
+                    }
+                }
+
+                function open() {
+                    var saved = getUser();
+                    if (saved) usernameInput.value = saved;
+                    updatePreview();
+                    modal.classList.add("active");
+                }
+                function close() {
+                    modal.classList.remove("active");
+                }
+
+                if (profileBtn)
+                    profileBtn.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        open();
+                    });
+                document
+                    .querySelectorAll("[data-pf-close]")
+                    .forEach(function (el) {
+                        el.addEventListener("click", close);
+                    });
+                if (saveBtn) {
+                    saveBtn.addEventListener("click", function () {
+                        var name = usernameInput.value.trim();
+                        var file = logoInput.files[0];
+                        if (name) {
+                            try {
+                                localStorage.setItem("intertype-user", name);
+                            } catch (e) {}
+                        }
+                        if (file) {
+                            var reader = new FileReader();
+                            reader.onload = function (ev) {
+                                try {
+                                    localStorage.setItem(
+                                        "intertype-logo",
+                                        ev.target.result,
+                                    );
+                                } catch (e) {}
+                                updatePreview();
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            updatePreview();
+                        }
+                        close();
+                        // refresh greeting if present
+                        var greet = document.getElementById("hero-greeting");
+                        if (greet) {
+                            var u = getUser();
+                            greet.textContent = u
+                                ? "Welcome " + u + "!"
+                                : "Welcome!";
+                        }
+                    });
+                }
             })();
         </script>
         <script>

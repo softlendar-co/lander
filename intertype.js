@@ -432,14 +432,16 @@
       openModal("history");
     });
   }
+  if (profileSaveBtn) {
+    profileSaveBtn.addEventListener("click", saveProfile);
+  }
+
   if (profileBtn) {
-    profileBtn.addEventListener("click", function () {
+    profileBtn.addEventListener("click", function (e) {
+      e.preventDefault();
       loadProfile();
       openModal("profile");
     });
-  }
-  if (profileSaveBtn) {
-    profileSaveBtn.addEventListener("click", saveProfile);
   }
 
   document.querySelectorAll("[data-close]").forEach(function (el) {

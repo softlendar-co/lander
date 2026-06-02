@@ -1755,3 +1755,137 @@ body {
         font-size: 0.85rem;
     }
 }
+
+/* ---------- PROFILE MODAL ---------- */
+.pf-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.pf-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+.pf-modal-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+.pf-modal-box {
+    position: relative;
+    background: #1a0a2e;
+    border: 1px solid rgba(255, 140, 66, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 420px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(26, 10, 46, 0.6);
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+.pf-modal.active .pf-modal-box {
+    transform: scale(1);
+}
+.pf-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 140, 66, 0.2);
+}
+.pf-modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ff8c42;
+}
+.pf-modal-close {
+    font-size: 1.4rem;
+    color: rgba(224, 213, 240, 0.5);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.pf-modal-close:hover {
+    color: #ff8c42;
+}
+.pf-modal-body {
+    color: #e0d5f0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+.pf-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 140, 66, 0.2);
+    gap: 12px;
+}
+.pf-preview {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff8c42, #ff3c7f);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.pf-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.pf-label {
+    color: #e0d5f0;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+.pf-input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 140, 66, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e0d5f0;
+    font-size: 0.85rem;
+    outline: none;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    max-width: 180px;
+}
+.pf-input:focus {
+    border-color: #ff8c42;
+    box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.15);
+}
+.pf-save {
+    margin-top: 8px;
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #ff8c42, #ff3c7f);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+.pf-save:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(255, 60, 127, 0.35);
+}
