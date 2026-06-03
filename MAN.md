@@ -57,7 +57,7 @@ Kep this man handy so you don't forget!
 
 ## Project Rules
 - ***alwasys plan before act***
-- **"scc" = stage & generate commit msg & update commit logs** — when user says "scc", run git add and stage all modified files then generate a commit message (do NOT commit)
+- **"scc" = stage & generate a short commit msg & update commit logs** — when user says "scc", run git add and stage all modified files then generate a commit message (do NOT commit)
 - **in any chats if said listen then listen until said do it** — if user say listen then do not get on it until user say do it or mak it
 - **when said committed** — know that it is committed
 - **when said deployed** — know that it's live and run: fetch softlendar.com
@@ -127,6 +127,14 @@ Kep this man handy so you don't forget!
 - intertype.css — profile modal styles (`.it-profile-wrap`, `.it-profile-row`, `.it-profile-preview`, `.it-profile-save`); user message avatar layout (`.it-msg-user-wrap`, `.it-msg-user-avatar`, `.it-msg-user-col`, `.it-msg-user-name`); profile button responsive hide
 - index.html — hero greeting `<p class="hero-greeting">` added below `.hero-sub`; inline script reads `intertype-user` from localStorage and displays "Welcome {username}!"
 - landing.css — `.settings-btn` position changed from `right: 16px` to `left: 16px`
+
+### var:8 — profile modal synced across homepage + interType
+
+- index.html — profile modal (`pf-modal`) added with avatar preview, username input, logo file upload, Save button; `👤` nav icon wired to `open()` the modal; JS shares same localStorage keys (`intertype-user`, `intertype-logo`) as interType so profile data is synced
+- landing.css — `.pf-*` modal styles added (dark card, orange/pink accent, backdrop blur, input focus glow, save button hover lift)
+- intertype.html — `👤` icon changed back to `<a href="/">` with `text-decoration: none`; profile modal still reachable via sidebar menu
+- intertype.js — `profileBtn` click listener restored with `preventDefault()` so header icon opens modal instead of navigating; `loadProfile()` + `openModal("profile")` flow preserved
+- intertype.css — `.it-profile` group restored to `text-decoration: none` for the anchor tag
 
 ### var:7 — stop button interrupts in-flight responses
 
