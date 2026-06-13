@@ -17,12 +17,16 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 def get_conn():
-    return psycopg2.connect(DATABASE_URL, sslmode="require")
+    if not DATABASE_URL:
+        raise RuntimeError("DATABASE_URL not set")
+    # Render URLs already include sslmode; don't force it again
+    return psycopg2.connect(DATABASE_URL)
 
 
 def init_db():
     """Create user_messages table if it doesn't exist."""
     if not DATABASE_URL:
+        print("[init_db] DATABASE_URL not set — skipping table creation")
         return
     try:
         with get_conn() as conn:
@@ -38,8 +42,10 @@ def init_db():
                     """
                 )
                 conn.commit()
-    except Exception:
-        pass
+        print("[init_db] user_messages table ready")
+    except Exception as e:
+        print("[init_db] error:", e)
+        raise
 
 
 class UserMsg:
