@@ -57,7 +57,7 @@ Kep this man handy so you don't forget!
 
 ## Project Rules
 - ***alwasys plan before act***
-- **"scc" = stage & generate a short commit msg & update commit logs** — when user says "scc", run git add and stage all modified files then generate a short commit message (do NOT commit)
+- **"scc" = stage & generate a short commit msg & update commit logs** — when user says "scc", run git add and stage all modified files then generate a commit message (do NOT commit)
 - **in any chats if said listen then listen until said do it** — if user say listen then do not get on it until user say do it or mak it
 - **when said committed** — know that it is committed
 - **when said deployed** — know that it's live and run: fetch softlendar.com
@@ -122,7 +122,7 @@ Kep this man handy so you don't forget!
 
 ### var:6 — interType profile system + technoly keyword + homepage greeting
 
-- intertype.js — profile localStorage helpers (`getUserName`, `getUserLogo`, `updateProfilePreview`, `loadProfile`, `saveProfile`); `TECHNOLY` keyword regex + `isTechnoly()`; user message bubble refactored to avatar + username + message wrap; profile modal wired to open/close
+- intertype.js — profile localStorage helpers (`getUserName`, `getUserLogo`, `updateProfilePreview`, `loadProfile`, `saveProfile`); `TECHNOL` keyword regex + `isTechnoly()`; user message bubble refactored to avatar + username + message wrap; profile modal wired to open/close
 - intertype.html — `👤` profile button in header, profile sidebar item, profile modal with logo preview, username input, file upload, save button
 - intertype.css — profile modal styles (`.it-profile-wrap`, `.it-profile-row`, `.it-profile-preview`, `.it-profile-save`); user message avatar layout (`.it-msg-user-wrap`, `.it-msg-user-avatar`, `.it-msg-user-col`, `.it-msg-user-name`); profile button responsive hide
 - index.html — hero greeting `<p class="hero-greeting">` added below `.hero-sub`; inline script reads `intertype-user` from localStorage and displays "Welcome {username}!"
@@ -144,3 +144,14 @@ Kep this man handy so you don't forget!
 
 - created `logo/` directory; moved all `*_logo.svg` files into it
 - updated references in `index.html`, `intertype.html`, `project.html`, `add_nav.py`
+
+### var:10 — contact form + PostgreSQL data store
+
+- index.html — contact card (`user-contact-email-input`, `user-contact-msg-input`, `contact-sv-btn`) added with email + message fields; JS posts to `/api/contact`
+- landing.css — `.contact-form`, `.contact-input`, `.contact-textarea`, `.contact-feedback` styles (ok/err colors)
+- main.py — `UserMsg` class with `.save()` and `.all()` using PostgreSQL via `psycopg`; `POST /api/contact` stores messages; `GET /api/messages` returns all
+- requirements.txt — added `psycopg==3.1.18`
+- `init_db()` auto-creates `user_messages` table on startup
+
+## Future Projects
+- **agentbil** — agency platform (separate from softlendar)
