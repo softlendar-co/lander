@@ -154,4 +154,4 @@ Kep this man handy so you don't forget!
 - `init_db()` auto-creates `user_messages` table on startup
 
 ## Future Projects
-- **agentbil** — agency platform (separate from softlendar)
+- **agentbil** — agency platform (one of softlendar's product)
