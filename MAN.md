@@ -13,7 +13,6 @@ Kep this man handy so you don't forget!
 | erl       | early         |
 | brose     | browse        |
 | voce      | voice         |
-| pg        | database      |
 | static    | fun / victory |
 | kep       | keep          |
 | man       | manual        |
