@@ -283,6 +283,14 @@
                     >
                         🐾 Visit ct
                     </a>
+                    <a
+                        href="https://setomoly.base44.app/"
+                        class="link-btn primary"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        🚀 Visit setomoly
+                    </a>
                 </div>
                 <div class="links-row">
                     <a
@@ -292,6 +300,9 @@
                         rel="noopener"
                     >
                         📦 GitHub
+                    </a>
+                    <a href="/setomoly" class="link-btn secondary">
+                        📖 About setomoly
                     </a>
                 </div>
             </div>
@@ -326,7 +337,9 @@
 
             <div class="paws" aria-hidden="true">☀️☀️☀️</div>
             <div class="footer-note">
-                softlendar.com ❤️ — built with intercore!
+                softlendar.com ❤️ — built with intercore dblogy & helped by
+                <a href="https://tamimashraf132.wixsite.com/nexmind/">nexmind</a
+                >!
             </div>
         </section>
 
@@ -685,7 +698,7 @@
                     <span class="marquee-label">setomoly</span>
                 </div>
                 <div class="marquee-item">
-                    <a href="/redarbot" class="marquee-link">
+                    <a href="/wilgo" class="marquee-link">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 100 100"
@@ -937,7 +950,7 @@
                             "available contexts: softlendar, cyberdyne, termitoria",
                         );
                         return;
-                    }
+                    }ria"
                     currentCtx = name;
                     termTitle.textContent = CONTEXTS[name].prompt;
                     printLine("switched to context: " + name);
@@ -1324,24 +1337,31 @@
                 const saveBtn = document.getElementById("pf-save-btn");
                 const profileBtn = document.getElementById("hero-profile-btn");
 
-                function getUser() {
+                // fast client cache
+                function cacheGet(key) {
                     try {
-                        return localStorage.getItem("intertype-user");
+                        return localStorage.getItem(key);
                     } catch (e) {
                         return null;
                     }
                 }
-                function getLogo() {
+                function cacheSet(key, val) {
                     try {
-                        return localStorage.getItem("intertype-logo");
-                    } catch (e) {
-                        return null;
-                    }
+                        localStorage.setItem(key, val);
+                    } catch (e) {}
+                }
+                function cacheClear(key) {
+                    try {
+                        localStorage.removeItem(key);
+                    } catch (e) {}
                 }
 
+                var dbUser = null;
+                var dbLogo = null;
+
                 function updatePreview() {
-                    var user = getUser() || "#19";
-                    var logo = getLogo();
+                    var user = dbUser || cacheGet("intertype-user") || "#19";
+                    var logo = dbLogo || cacheGet("intertype-logo");
                     if (logo) {
                         preview.innerHTML =
                             '<img src="' +
@@ -1352,9 +1372,39 @@
                     }
                 }
 
+                function loadFromServer() {
+                    fetch("/api/profile")
+                        .then(function (r) {
+                            return r.json();
+                        })
+                        .then(function (data) {
+                            if (data.username) {
+                                dbUser = data.username;
+                                cacheSet("intertype-user", data.username);
+                            }
+                            if (data.logo_url) {
+                                dbLogo = data.logo_url;
+                                cacheSet("intertype-logo", data.logo_url);
+                            }
+                            updatePreview();
+                            // sync greeting
+                            var greet =
+                                document.getElementById("hero-greeting");
+                            if (greet) {
+                                greet.textContent = dbUser
+                                    ? "Welcome " + dbUser + "!"
+                                    : "Welcome!";
+                            }
+                        })
+                        .catch(function () {
+                            // fallback to cache only
+                            updatePreview();
+                        });
+                }
+
                 function open() {
-                    var saved = getUser();
-                    if (saved) usernameInput.value = saved;
+                    usernameInput.value =
+                        dbUser || cacheGet("intertype-user") || "";
                     updatePreview();
                     modal.classList.add("active");
                 }
@@ -1372,38 +1422,47 @@
                     .forEach(function (el) {
                         el.addEventListener("click", close);
                     });
+
+                // load from server on boot
+                loadFromServer();
+
                 if (saveBtn) {
                     saveBtn.addEventListener("click", function () {
                         var name = usernameInput.value.trim();
                         var file = logoInput.files[0];
-                        if (name) {
-                            try {
-                                localStorage.setItem("intertype-user", name);
-                            } catch (e) {}
+
+                        function persist(logoUrl) {
+                            dbUser = name || dbUser;
+                            dbLogo = logoUrl || dbLogo;
+                            if (name) cacheSet("intertype-user", name);
+                            if (logoUrl) cacheSet("intertype-logo", logoUrl);
+                            updatePreview();
+                            fetch("/api/profile", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    username: dbUser || "",
+                                    logo_url: dbLogo || "",
+                                }),
+                            }).catch(function () {});
+                            close();
+                            var greet =
+                                document.getElementById("hero-greeting");
+                            if (greet) {
+                                greet.textContent = dbUser
+                                    ? "Welcome " + dbUser + "!"
+                                    : "Welcome!";
+                            }
                         }
+
                         if (file) {
                             var reader = new FileReader();
                             reader.onload = function (ev) {
-                                try {
-                                    localStorage.setItem(
-                                        "intertype-logo",
-                                        ev.target.result,
-                                    );
-                                } catch (e) {}
-                                updatePreview();
+                                persist(ev.target.result);
                             };
                             reader.readAsDataURL(file);
                         } else {
-                            updatePreview();
-                        }
-                        close();
-                        // refresh greeting if present
-                        var greet = document.getElementById("hero-greeting");
-                        if (greet) {
-                            var u = getUser();
-                            greet.textContent = u
-                                ? "Welcome " + u + "!"
-                                : "Welcome!";
+                            persist();
                         }
                     });
                 }

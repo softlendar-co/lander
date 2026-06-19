@@ -95,25 +95,30 @@
   }
 
   /* Profile helpers */
-  function getUserName() {
+  var dbUser = null;
+  var dbLogo = null;
+
+  function cacheGet(key) {
     try {
-      return localStorage.getItem("intertype-user");
+      return localStorage.getItem(key);
     } catch (e) {
       return null;
     }
   }
-
-  function getUserLogo() {
+  function cacheSet(key, val) {
     try {
-      return localStorage.getItem("intertype-logo");
-    } catch (e) {
-      return null;
-    }
+      localStorage.setItem(key, val);
+    } catch (e) {}
+  }
+  function cacheClear(key) {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {}
   }
 
   function updateProfilePreview() {
-    const user = getUserName() || "#19";
-    const logo = getUserLogo();
+    const user = dbUser || cacheGet("intertype-user") || "#19";
+    const logo = dbLogo || cacheGet("intertype-logo");
     if (logo) {
       profilePreview.innerHTML =
         '<img class="it-profile-avatar" src="' + logo + '" alt="">';
@@ -123,38 +128,61 @@
   }
 
   function loadProfile() {
-    const savedUser = getUserName();
-    if (savedUser) {
-      profileUsername.value = savedUser;
-    }
+    profileUsername.value = dbUser || cacheGet("intertype-user") || "";
     updateProfilePreview();
   }
 
   function saveProfile() {
     const username = profileUsername.value.trim();
     const file = profileLogo.files[0];
-    if (username) {
-      try {
-        localStorage.setItem("intertype-user", username);
-      } catch (e) {}
-    } else {
-      try {
-        localStorage.removeItem("intertype-user");
-      } catch (e) {}
+
+    function persist(logoUrl) {
+      dbUser = username || dbUser;
+      dbLogo = logoUrl || dbLogo;
+      if (username) cacheSet("intertype-user", username);
+      if (logoUrl) cacheSet("intertype-logo", logoUrl);
+      updateProfilePreview();
+      fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: dbUser || "",
+          logo_url: dbLogo || "",
+        }),
+      }).catch(function () {});
+      closeModal("profile");
     }
+
     if (file) {
       const reader = new FileReader();
       reader.onload = function () {
-        try {
-          localStorage.setItem("intertype-logo", reader.result);
-        } catch (e) {}
-        updateProfilePreview();
+        persist(reader.result);
       };
       reader.readAsDataURL(file);
     } else {
-      updateProfilePreview();
+      persist();
     }
-    closeModal("profile");
+  }
+
+  function loadFromServer() {
+    fetch("/api/profile")
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (data) {
+        if (data.username) {
+          dbUser = data.username;
+          cacheSet("intertype-user", data.username);
+        }
+        if (data.logo_url) {
+          dbLogo = data.logo_url;
+          cacheSet("intertype-logo", data.logo_url);
+        }
+        updateProfilePreview();
+      })
+      .catch(function () {
+        updateProfilePreview();
+      });
   }
 
   /* Helpers */
@@ -443,6 +471,9 @@
       openModal("profile");
     });
   }
+
+  // refresh profile preview on page boot
+  loadFromServer();
 
   document.querySelectorAll("[data-close]").forEach(function (el) {
     el.addEventListener("click", function () {

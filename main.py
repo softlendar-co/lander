@@ -23,13 +23,14 @@ def get_conn():
 
 
 def init_db():
-    """Create user_messages table if it doesn't exist."""
+    """Create tables if they don't exist."""
     if not DATABASE_URL:
         print("[init_db] DATABASE_URL not set — skipping table creation")
         return
     try:
         with get_conn() as conn:
             with conn.cursor() as cur:
+                # Contact messages table
                 cur.execute(
                     """
                     CREATE TABLE IF NOT EXISTS user_messages (
@@ -40,8 +41,19 @@ def init_db():
                     )
                     """
                 )
+                # User profile table (single-row singleton)
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS user_profiles (
+                        id SERIAL PRIMARY KEY,
+                        username TEXT,
+                        logo_url TEXT,
+                        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+                    )
+                    """
+                )
                 conn.commit()
-        print("[init_db] user_messages table ready")
+        print("[init_db] tables ready")
     except Exception as e:
         print("[init_db] error:", e)
         raise
@@ -153,9 +165,9 @@ PROJECTS = {
     "setomoly": {
         "title": "setomoly",
         "tagline": "a universe-vibed game",
-        "body": "Explore the cosmos, build worlds, and discover mysteries in this space-themed adventure game.",
+        "body": "Explore the cosmos, build worlds, and discover mysteries in this space-themed adventure game. Navigate the cosmic abyss in this high-stakes, zero-gravity survival challenge where you must evade relentless shooting stars and escape the pull of encroaching black holes.",
         "stack": "Rust, WebAssembly, WebGL",
-        "live": "",
+        "live": "https://setomoly.base44.app/",
         "status": "in development",
     },
     "redarbot": {
@@ -304,6 +316,55 @@ def api_contact():
 @app.route("/api/messages", methods=["GET"])
 def api_messages():
     return jsonify(UserMsg.all())
+
+
+@app.route("/api/profile", methods=["POST"])
+def api_profile_save():
+    data = request.get_json() or {}
+    username = data.get("username", "").strip()
+    logo_url = data.get("logo_url", "").strip()
+    if not DATABASE_URL:
+        return jsonify({"error": "db not configured"}), 500
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            # upsert single row (id=1)
+            cur.execute(
+                """
+                INSERT INTO user_profiles (id, username, logo_url)
+                VALUES (1, %s, %s)
+                ON CONFLICT (id) DO UPDATE SET
+                    username = EXCLUDED.username,
+                    logo_url = EXCLUDED.logo_url,
+                    updated_at = NOW()
+                """,
+                (username, logo_url),
+            )
+            conn.commit()
+    return jsonify({"ok": True})
+
+
+@app.route("/api/profile", methods=["GET"])
+def api_profile_get():
+    if not DATABASE_URL:
+        return jsonify({"username": None, "logo_url": None})
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT username, logo_url FROM user_profiles WHERE id = 1")
+            row = cur.fetchone()
+            if row:
+                return jsonify({"username": row[0], "logo_url": row[1]})
+            return jsonify({"username": None, "logo_url": None})
+
+
+@app.route("/api/profile", methods=["DELETE"])
+def api_profile_delete():
+    if not DATABASE_URL:
+        return jsonify({"ok": False})
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute("DELETE FROM user_profiles WHERE id = 1")
+            conn.commit()
+    return jsonify({"ok": True})
 
 
 # Static assets
