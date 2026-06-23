@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import time
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
@@ -10,7 +11,7 @@ from flask import Flask, Response, jsonify, request, send_from_directory
 
 load_dotenv()
 
-app = Flask(__name__, static_folder=".")
+app = Flask(__name__, static_folder="files")
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -115,16 +116,30 @@ class UserMsg:
 
 
 def is_real_email(email: str) -> bool:
-    """Check if email domain resolves."""
-    parts = email.split("@")
-    if len(parts) != 2:
+    """Check email format + domain validity."""
+    import re
+
+    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    if not re.match(pattern, email):
         return False
-    domain = parts[1]
+    domain = email.split("@")[1]
     try:
-        socket.getaddrinfo(domain, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
+        import dns.resolver
+
+        try:
+            dns.resolver.resolve(domain, "MX")
+            return True
+        except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN):
+            dns.resolver.resolve(domain, "A")
+            return True
+    except ImportError:
         return True
     except Exception:
         return False
+
+
+# In-memory rate limit store: {email: last_request_timestamp}
+_rate_limit = {}
 
 
 def generate_code() -> str:
@@ -319,9 +334,9 @@ PROJECTS = {
 def render_project(key: str) -> str:
     p = PROJECTS.get(key)
     if not p:
-        return send_from_directory(".", "404.html")
+        return send_from_directory("files", "404.html")
 
-    with open("project.html", "r", encoding="utf-8") as f:
+    with open("files/project.html", "r", encoding="utf-8") as f:
         tpl = f.read()
 
     for k, v in p.items():
@@ -341,7 +356,7 @@ def add_cors_headers(response):
 
 @app.route("/")
 def home():
-    return send_from_directory(".", "index.html")
+    return send_from_directory("files", "index.html")
 
 
 @app.route("/api/health")
@@ -360,7 +375,7 @@ for slug in PROJECTS:
 
 @app.route("/interType", strict_slashes=False)
 def intertype_page():
-    return send_from_directory(".", "intertype.html")
+    return send_from_directory("files", "intertype.html")
 
 
 @app.route("/interType/api/chat", methods=["POST"])
@@ -414,6 +429,14 @@ def api_contact_send_code():
         return jsonify({"error": "wrong/unexisting email"}), 400
     if not is_real_email(email):
         return jsonify({"error": "wrong/unexisting email"}), 400
+
+    # Rate limit: 1 code per email per 60 seconds
+    now = time.time()
+    if email in _rate_limit and now - _rate_limit[email] < 60:
+        return jsonify(
+            {"error": "plese wwt 60 seconds before requesting another code"}
+        ), 429
+    _rate_limit[email] = now
 
     code = generate_code()
     save_verification(email, code, msg)
@@ -499,9 +522,14 @@ def api_profile_delete():
     return jsonify({"ok": True})
 
 
+@app.route("/logo/<path:filename>")
+def logo_files(filename):
+    return send_from_directory("logo", filename)
+
+
 @app.route("/<path:filename>")
 def static_files(filename):
-    return send_from_directory(".", filename)
+    return send_from_directory("files", filename)
 
 
 if __name__ == "__main__":

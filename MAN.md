@@ -157,3 +157,19 @@ Kep this man handy so you don't forget!
 - main.py — `UserMsg` class with `.save()` and `.all()` using PostgreSQL via `psycopg`; `POST /api/contact` stores messages; `GET /api/messages` returns all
 - requirements.txt — added `psycopg==3.1.18`
 - `init_db()` auto-creates `user_messages` table on startup
+
+### var:11 — project reorganization + owner logo
+
+- reorganized project: moved web assets (`index.html`, `landing.css`, `intertype.html`, `intertype.css`, `intertype.js`, `project.html`, `404.html`) into `files/` directory
+- moved utility scripts (`add_nav.py`, `add_volume.py`, `css_all.py`, `ed_all.py`, `fix_volume.py`, `fix_volume_html.py`, `volume_css.py`, `volume_inside.py`) into `script/` directory
+- moved `.env.example` and `package-lock.json` into `files/` directory
+- moved `volume_fix.css` and `volume_margin.css` into `files/` directory
+- added `logo/owner.svg` — personal logo (InD with 3 stars on light green background)
+- updated `main.py` file paths and imports to match new directory structure
+
+### var:11-deploy — deploy readiness fixes
+
+- `main.py` — added `time` import; fixed `is_real_email()` to use regex + MX record lookup (dnspython) with graceful fallback; added `_rate_limit` in-memory store + rate limiting (60s per email) on `/api/contact/send-code`; added `/logo/<path:filename>` route to serve root `logo/` directory; fixed `/` prefix on project detail CSS/logo paths
+- `files/project.html` — changed relative paths (`landing.css`, `logo/...`) to absolute paths (`/landing.css`, `/logo/...`) so they resolve correctly on project detail pages
+- `requirements.txt` — added `dnspython==2.6.1` for MX record email validation
+- compiled `main.py` successfully with `python3 -m py_compile`
