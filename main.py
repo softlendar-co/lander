@@ -1,10 +1,8 @@
 import json
 import os
 import random
-import smtplib
-import socket
+import urllib.request
 from datetime import datetime, timedelta, timezone
-from email.mime.text import MIMEText
 
 import psycopg
 from dotenv import load_dotenv
@@ -16,11 +14,9 @@ app = Flask(__name__, static_folder=".")
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-SMTP_HOST = os.getenv("SMTP_HOST", "")
-SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USER = os.getenv("SMTP_USER", "")
-SMTP_PASS = os.getenv("SMTP_PASS", "")
-SMTP_FROM = os.getenv("SMTP_FROM", SMTP_USER)
+MAILTRAP_API_TOKEN = os.getenv("MAILTRAP_API_TOKEN", "")
+MAILTRAP_FROM_EMAIL = os.getenv("MAILTRAP_FROM_EMAIL", "hello@demomailtrap.co")
+MAILTRAP_FROM_NAME = os.getenv("MAILTRAP_FROM_NAME", "Softlendar")
 
 
 def get_conn():
@@ -136,19 +132,30 @@ def generate_code() -> str:
 
 
 def send_email(to: str, subject: str, body: str) -> bool:
-    if not SMTP_HOST or not SMTP_USER or not SMTP_PASS:
-        print("[send_email] SMTP not configured")
+    if not MAILTRAP_API_TOKEN:
+        print("[send_email] MAILTRAP_API_TOKEN not set")
         return False
     try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASS)
-            msg = MIMEText(body, "plain", "utf-8")
-            msg["Subject"] = subject
-            msg["From"] = SMTP_FROM
-            msg["To"] = to
-            server.sendmail(SMTP_FROM, [to], msg.as_string())
-        return True
+        payload = json.dumps(
+            {
+                "from": {"email": MAILTRAP_FROM_EMAIL, "name": MAILTRAP_FROM_NAME},
+                "to": [{"email": to}],
+                "subject": subject,
+                "text": body,
+                "category": "Softlendar Verification",
+            }
+        ).encode("utf-8")
+        req = urllib.request.Request(
+            "https://send.api.mailtrap.io/api/send",
+            data=payload,
+            headers={
+                "Authorization": f"Bearer {MAILTRAP_API_TOKEN}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return resp.status in (200, 201, 202)
     except Exception as e:
         print("[send_email] error:", e)
         return False
