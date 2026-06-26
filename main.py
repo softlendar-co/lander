@@ -337,8 +337,8 @@ PROJECTS = {
     },
     "haster": {
         "title": "haster",
-        "tagline": "speed-first tooling",
-        "body": "A suite of fast, lightweight tools for developers who value speed and minimal overhead.",
+        "tagline": "like Facebook, but more &amp; more &amp; more privacy",
+        "body": "A social network that gives you more &amp; more &amp; more privacy — no tracking, no ads, just connection.",
         "stack": "Rust, Shell",
         "live": "",
         "status": "in development",

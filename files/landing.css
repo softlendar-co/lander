@@ -1947,3 +1947,380 @@ body {
 .contact-feedback.err {
     color: #f87171;
 }
+
+/* ===================================================================================
+ * SPINNING PRODUCT RING — Products ride on a rotating circle
+ * =================================================================================== */
+
+.radial-network {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    padding: 64px 32px;
+    background: linear-gradient(180deg, #1a0a2e 0%, #2a1a5e 100%);
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.radial-network::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 70% 50%,
+        rgba(255, 140, 66, 0.04) 0%,
+        transparent 60%
+    );
+    pointer-events: none;
+}
+
+/* Left panel — single active product detail */
+.network-left {
+    flex: 1;
+    max-width: 460px;
+    z-index: 2;
+    position: relative;
+}
+
+.network-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    color: #e0d5f0;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.network-desc {
+    font-size: 1rem;
+    color: rgba(224, 213, 240, 0.55);
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+/* Product detail card */
+.product-detail-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 140, 66, 0.12);
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.product-detail-card.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
+}
+
+.product-detail-card .pd-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #ff8c42, #ff3c7f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(255, 60, 127, 0.3);
+}
+
+.product-detail-card .pd-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #e0d5f0;
+    margin-bottom: 8px;
+}
+
+.product-detail-card .pd-tagline {
+    font-size: 0.95rem;
+    color: #ff8c42;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.product-detail-card .pd-body {
+    font-size: 0.9rem;
+    color: rgba(224, 213, 240, 0.65);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.product-detail-card .pd-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #ff8c42, #ff3c7f);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(255, 60, 127, 0.3);
+    transition: all 0.2s ease;
+}
+
+.product-detail-card .pd-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 60, 127, 0.45);
+}
+
+/* Right panel — spinning ring */
+.network-right {
+    flex: 1;
+    max-width: 500px;
+    aspect-ratio: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The spinning ring */
+.net-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 140, 66, 0.08);
+    animation: ringSpin 30s linear infinite;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.net-ring.paused {
+    animation-play-state: paused;
+}
+
+.net-ring.paused .net-slot-inner {
+    animation-play-state: paused;
+}
+
+@keyframes ringSpin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Product slots on the ring */
+.net-slot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 72px;
+    height: 72px;
+    margin: -36px 0 0 -36px;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 0.3s ease;
+}
+
+.net-slot:hover {
+    transform: scale(1.15);
+    z-index: 20;
+}
+
+.net-slot-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(26, 10, 46, 0.85);
+    border: 2px solid rgba(255, 140, 66, 0.25);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 140, 66, 0.08);
+    animation: slotCounterSpin 30s linear infinite;
+}
+
+@keyframes slotCounterSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+.net-slot:hover .net-slot-inner,
+.net-slot.active .net-slot-inner {
+    border-color: #ff8c42;
+    box-shadow: 0 0 30px rgba(255, 140, 66, 0.6), 0 0 60px rgba(255, 60, 127, 0.3), 0 8px 30px rgba(255, 140, 66, 0.35);
+    background: rgba(255, 140, 66, 0.15);
+}
+
+.net-slot-inner svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Position slots around the ring using transform */
+.net-slot[data-pos="0"] {
+    transform: rotate(0deg) translateY(-145px) rotate(0deg);
+}
+.net-slot[data-pos="1"] {
+    transform: rotate(40deg) translateY(-145px) rotate(-40deg);
+}
+.net-slot[data-pos="2"] {
+    transform: rotate(80deg) translateY(-145px) rotate(-80deg);
+}
+.net-slot[data-pos="3"] {
+    transform: rotate(120deg) translateY(-145px) rotate(-120deg);
+}
+.net-slot[data-pos="4"] {
+    transform: rotate(160deg) translateY(-145px) rotate(-160deg);
+}
+.net-slot[data-pos="5"] {
+    transform: rotate(200deg) translateY(-145px) rotate(-200deg);
+}
+.net-slot[data-pos="6"] {
+    transform: rotate(240deg) translateY(-145px) rotate(-240deg);
+}
+.net-slot[data-pos="7"] {
+    transform: rotate(280deg) translateY(-145px) rotate(-280deg);
+}
+.net-slot[data-pos="8"] {
+    transform: rotate(320deg) translateY(-145px) rotate(-320deg);
+}
+
+.net-slot:hover,
+.net-slot.active {
+    transform: scale(1.2) rotate(var(--slot-angle)) translateY(-145px)
+        rotate(calc(-1 * var(--slot-angle))) !important;
+}
+
+/* Center hub */
+.net-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.net-center-glow {
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 140, 66, 0.12) 0%,
+        transparent 70%
+    );
+    animation: centerPulse 3s ease-in-out infinite;
+}
+
+@keyframes centerPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.8;
+    }
+}
+
+.net-center-logo svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 20px rgba(255, 140, 66, 0.3));
+}
+
+.net-center-label {
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #ff8c42;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+/* Connection dots on the ring */
+.net-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 140, 66, 0.3);
+    margin: -2px 0 0 -2px;
+}
+
+.net-dot[data-pos="0"] {
+    transform: rotate(0deg) translateY(-145px);
+}
+.net-dot[data-pos="1"] {
+    transform: rotate(40deg) translateY(-145px);
+}
+.net-dot[data-pos="2"] {
+    transform: rotate(80deg) translateY(-145px);
+}
+.net-dot[data-pos="3"] {
+    transform: rotate(120deg) translateY(-145px);
+}
+.net-dot[data-pos="4"] {
+    transform: rotate(160deg) translateY(-145px);
+}
+.net-dot[data-pos="5"] {
+    transform: rotate(200deg) translateY(-145px);
+}
+.net-dot[data-pos="6"] {
+    transform: rotate(240deg) translateY(-145px);
+}
+.net-dot[data-pos="7"] {
+    transform: rotate(280deg) translateY(-145px);
+}
+.net-dot[data-pos="8"] {
+    transform: rotate(320deg) translateY(-145px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .radial-network {
+        flex-direction: column;
+        padding: 32px 20px;
+        gap: 40px;
+    }
+    .network-left,
+    .network-right {
+        max-width: 100%;
+    }
+    .network-right {
+        width: 100%;
+        max-width: 360px;
+    }
+    .net-slot[data-pos] {
+        transform: rotate(var(--slot-angle)) translateY(-110px)
+            rotate(calc(-1 * var(--slot-angle))) !important;
+    }
+    .net-dot[data-pos] {
+        transform: rotate(var(--slot-angle)) translateY(-110px) !important;
+    }
+}
